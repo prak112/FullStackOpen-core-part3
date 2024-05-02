@@ -1,0 +1,40 @@
+
+POST http://localhost:3001/api/contacts/ HTTP/1.1/
+content-type: application/json
+
+{
+    "name": "Mojo Jojo",
+    "number": "359-123-112-4567"
+}
+
+####
+
+POST http://localhost:3001/api/contacts/ HTTP/1.1/
+content-type: application/json
+
+{
+    "name": "",
+    "number": "359-123-112-4567"
+}
+
+####
+
+POST http://localhost:3001/api/contacts/ HTTP/1.1/
+content-type: application/json
+
+{
+    "name": "Mojo Jojo",
+    "number": ""
+}
+
+####
+
+POST http://localhost:3001/api/contacts/ HTTP/1.1/
+content-type: application/json
+
+{
+    "name": "Dan Abramov",
+    "number": "12-43-555555"
+}
+
+####

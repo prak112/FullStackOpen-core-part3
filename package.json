@@ -1,0 +1,32 @@
+{
+  "name": "fullstackopen-core-part3",
+  "version": "1.0.0",
+  "description": "exercises to learn backend development and deployment to the Internet",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prak112/FullStackOpen-core-part3.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Prakirth Govardhanam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prak112/FullStackOpen-core-part3/issues"
+  },
+  "homepage": "https://github.com/prak112/FullStackOpen-core-part3#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
