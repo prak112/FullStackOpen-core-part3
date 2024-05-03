@@ -1,15 +1,19 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const PORT = 3001
 const app = express()
 
+// validate resources to client-side rendering
+app.use(cors())
+
 // Middleware/HTTP requests logging
 app.use(express.json()) // json-parser for body
-// app.use(morgan('tiny')) 
+app.use(morgan('tiny')) 
 
-// for POST method testing purposes only
-morgan.token('body', (req, res) => JSON.stringify(req.body) );
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+// ONLY for testing purposes - POST method
+// morgan.token('body', (req, res) => JSON.stringify(req.body) );
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 // data
 let contacts = 

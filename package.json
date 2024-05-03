@@ -1,12 +1,12 @@
 {
-  "name": "fullstackopen-core-part3",
+  "name": "phonebook-backend",
   "version": "1.0.0",
-  "description": "exercises to learn backend development and deployment to the Internet",
+  "description": "exercises to learn using Express, Morgan, MongoDB and app deployment to the Internet",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "node --watch index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/prak112/FullStackOpen-core-part3#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "morgan": "^1.10.0"
   },
