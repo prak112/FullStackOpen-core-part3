@@ -4,11 +4,12 @@ const PORT = 3001
 const app = express()
 
 // Middleware/HTTP requests logging
-app.use(express.json()) // json-parser
+app.use(express.json()) // json-parser for body
+// app.use(morgan('tiny')) 
 
-app.use(morgan('tiny')) 
-//morgan.token('content', (req, res) => [...req.body ] );
-//app.use(morgan(':method :url :status :content'));
+// for POST method testing purposes only
+morgan.token('body', (req, res) => JSON.stringify(req.body) );
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 // data
 let contacts = 
