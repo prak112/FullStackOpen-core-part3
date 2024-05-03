@@ -6,6 +6,6 @@
 # Part 3 - Programming a server with Node.js and Express
 | Exercises | Description |
 | --- | --- |
-| 3.1 to 3.8 | [Build REST API using Express](/index.js), [API testing using REST Client extension](/requests/) |
+| 3.1 to 3.8 | [Build REST API using Express](/index.js), [API testing using REST Client extension](/requests/), Middleware logging using `morgan` |
 | | Deploy application to the Internet |
 | | Setup and save application data to MongoDB |
