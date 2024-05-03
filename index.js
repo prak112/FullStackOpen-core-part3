@@ -1,7 +1,14 @@
 const express = require('express')
-const app = express()
+const morgan = require('morgan')
 const PORT = 3001
-app.use(express.json()) // json-parser for POST request
+const app = express()
+
+// Middleware/HTTP requests logging
+app.use(express.json()) // json-parser
+
+app.use(morgan('tiny')) 
+//morgan.token('content', (req, res) => [...req.body ] );
+//app.use(morgan(':method :url :status :content'));
 
 // data
 let contacts = 
@@ -57,8 +64,6 @@ app.get('/api/contacts/:id', (request, response) => {
 
 // POST
 app.post('/api/contacts', (request, response) => {
-    console.log('Before POST:\n', contacts)
-
     const generateId = (limit) => Math.floor(Math.random() * limit)
     const name = request.body.name
     const number = request.body.number
@@ -79,8 +84,6 @@ app.post('/api/contacts', (request, response) => {
         number: number  
     }
     contacts.concat(contact)
-    console.log('New Contact: ', contact);
-    console.log('After POST:\n', contacts.concat(contact))
     response.json(contacts.concat(contact))
 })
 
@@ -100,3 +103,5 @@ app.delete('/api/contacts/:id', (request, response) => {
 app.listen(PORT, () => {
     console.log(`Server running on Port ${PORT}`)
 })
+
+
