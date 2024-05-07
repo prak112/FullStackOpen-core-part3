@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
     "build:ui": "rm -rf dist && cd D:/GitHub_Projects/fullstack-open-core/part2/phonebook && npm run build && cp -r dist d/GitHub_Projects/FullStackOpen-core-part3",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push origin main"
+    "deploy:full": "dotenv -e .env npm run build:ui && git add . && git commit -m uibuild && git push origin main && curl -X POST $RENDER_DEPLOY_HOOK$"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "dotenv": "^16.4.5",
     "nodemon": "^3.1.0"
   }
 }
