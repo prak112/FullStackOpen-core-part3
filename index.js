@@ -7,7 +7,11 @@ const app = express()
 // validate resources to client-side rendering
 app.use(cors())
 
-// Middleware/HTTP requests logging
+// Middleware
+// Static site rendering
+app.use(express.static('dist'))
+
+// HTTP requests logging
 app.use(express.json()) // json-parser for body
 app.use(morgan('tiny')) 
 

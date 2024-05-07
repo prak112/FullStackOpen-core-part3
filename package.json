@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "build:ui": "rm -rf dist && cd D:/GitHub_Projects/fullstack-open-core/part2/phonebook && npm run build && cp -r dist d/GitHub_Projects/FullStackOpen-core-part3",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push origin main"
   },
   "repository": {
     "type": "git",

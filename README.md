@@ -7,5 +7,5 @@
 | Exercises | Description |
 | --- | --- |
 | 3.1 to 3.8 | [Build REST API using Express](/index.js), [API testing using REST Client extension](/requests/), Middleware logging using `morgan` |
-| 3.9 to 3.11 | Deploy application using Replit, [Visit Phonebook app](https://fullstackopen-core-part3.onrender.com/api/contacts) |
+| 3.9 to 3.11 | Deploy backend using Render - [Deployed Phonebook app](https://fullstackopen-core-part3.onrender.com/api/contacts), Deploy frontend production build |
 | | Setup and save application data to MongoDB |
