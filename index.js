@@ -6,7 +6,7 @@ const express = require('express')
 const Contact = require('./models/contact')
 const morgan = require('morgan')    // logger
 const cors = require('cors')        // cross-origin resource sharing
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 
 const app = express()
 // load Middleware (VERY PARTICULAR ORDER)
