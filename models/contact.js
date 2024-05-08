@@ -5,10 +5,10 @@ const dotenv = require('dotenv')
 // load environment variables
 dotenv.config()
 
-if (!process.env.DB_PASSWORD || !process.env.MONGODB_URI) {
-  console.log('Credentials not set in .env')
-  process.exit(1)
-}
+// if (!process.env.DB_PASSWORD || !process.env.MONGODB_URI) {
+//   console.log('Credentials not set in .env')
+//   process.exit(1)
+// }
 
 const password = process.env.DB_PASSWORD
 const databaseName = 'phonebookApp'

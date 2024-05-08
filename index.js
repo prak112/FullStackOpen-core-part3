@@ -9,45 +9,55 @@ const cors = require('cors')        // cross-origin resource sharing
 const PORT = process.env.PORT
 
 const app = express()
-
-// accept frontend 'dist' from different origin
-app.use(cors())
-
-// Middleware
-// Static site rendering
-app.use(express.static('dist'))
-
-// HTTP requests logging
+// load Middleware (VERY PARTICULAR ORDER)
+app.use(express.static('dist')) // Static site rendering
 app.use(express.json()) // json-parser for body
-app.use(morgan('tiny')) 
+app.use(cors()) // accept frontend 'dist' from different origin
+app.use(morgan('tiny')) // HTTP requests logging
 
-// ONLY for development purposes - POST method
+// Request Logger ONLY for development purposes - POST method
 // morgan.token('body', (req, res) => JSON.stringify(req.body) );
 // app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 
-// HTTP methods to access data
-//Root
+// HTTP methods
+// Home
 app.get('/', (request, response) => {
     response.send('<h1>Welcome to Phonebook app</h1>');
 })
 
 // GET
-app.get('/api/contacts', (request, response) => {
-    Contact.find({}).then(contacts => {
+app.get('/api/contacts', (request, response, next) => {
+    Contact.find({})
+    .then(contacts => {
         response.json(contacts)
-     })
-})
+    })
+    .catch(error => next(error))
 
-app.get('/api/contacts/:id', (request, response) => {
-    const id = Number(request.params.id)
-    Contact.findById(id).then(result => {
+})
+// GET by id 
+app.get('/api/contacts/:id', (request, response, next) => {
+    Contact.findById(request.params.id)
+    .then(result => {
         response.json(result)
     })
+    .catch(error => next(error))
+})
+
+// GET info 
+app.get('/api/info', (request, response, next) => {
+    Contact.countDocuments({})
+    .then(allContacts => {
+        const content = `Phonebook has information for ${allContacts} contacts`
+        const now = new Date()
+        const lastRequestedAt = now.toString()
+        response.send(`<h2>${content}</h2></br><p>${lastRequestedAt}</p>`)
+    })
+    .catch(error => next(error))
 })
 
 // POST
-app.post('/api/contacts', (request, response) => {
+app.post('/api/contacts', (request, response, next) => {
     const name = request.body.name
     const number = request.body.number
     if(!name || !number){
@@ -55,37 +65,61 @@ app.post('/api/contacts', (request, response) => {
             ERROR: "Missing Contact information. Verify Name and/or Number."
         })
     }
-    // else if(contacts.some(contact => contact.name === name)){
-    //     return response.status(400).json({
-    //         ERROR: "Contact Name already exists."
-    //     })
-    // }
     else {
         const contact = new Contact({
             name: name,
             number: number  
         })
-        contact.save().then(savedContact => {
+        contact.save()
+        .then(savedContact => {
             response.json(savedContact)
         })
+        .catch(error => next(error))
     }
 })
 
-// DELETE
-// app.delete('/api/contacts/:id', (request, response) => {
-//     const id = Number(request.params.id)
-//     contacts = contacts.filter((contact) => contact.id !== id)
-//     console.log(`Contact of ID ${id} deleted.`);
-//     console.log(contacts)
-//     response.status(204).json({
-//         INFO: "Contact deleted"
-//     })
-// })
+// UPDATE
+app.put('/api/contacts/:id', (request, response, next) => {
+    const contact = {
+        name: request.body.name,
+        number: request.body.number
+    }
+    Contact.findByIdAndUpdate(request.params.id, contact, {new: true})
+        .then(updatedContact => {
+            response.json(updatedContact)
+        })
+        .catch(error => next(error))
+})
 
+
+// DELETE
+app.delete('/api/contacts/:id', (request, response, next) => {
+    Contact.findByIdAndDelete(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
+})
 
 // listen to PORT and log
 app.listen(PORT, () => {
     console.log(`Server running on Port ${PORT}`)
 })
 
+
+// Unknown endpoint handler
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({error : 'Unknown Endpoint'})
+}
+app.use(unknownEndpoint)    // load before-last Middleware
+
+// Requests error handler
+const errorHandler = (error, request, response, next) => {
+    console.error(error.message)
+    if(error.name === 'CastError'){
+        response.status(400).send({error: 'Malformed request syntax / Invalid request framing'})
+    }
+    next(error)
+}
+app.use(errorHandler)   // ALWAYS last loaded Middleware
 
