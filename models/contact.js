@@ -5,8 +5,8 @@ const dotenv = require('dotenv')
 // load environment variables
 dotenv.config()
 
-if (!process.env.DB_PASSWORD) {
-  console.log('DB_PASSWORD not set in .env')
+if (!process.env.DB_PASSWORD || !process.env.MONGODB_URI) {
+  console.log('Credentials not set in .env')
   process.exit(1)
 }
 
