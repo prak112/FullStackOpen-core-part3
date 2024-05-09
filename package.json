@@ -8,9 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "inspect": "node --inspect index.js",
     "dev": "nodemon --watch index.js",
-    "build:ui": "rm -rf dist && cd D:/GitHub_Projects/fullstack-open-core/part2/phonebook && npm run build && cp -r dist d/GitHub_Projects/FullStackOpen-core-part3",
-    "deploy:full": "dotenv -e .env npm run build:ui && git add . && git commit -m uibuild && git push origin main && curl -X POST $RENDER_DEPLOY_HOOK$",
-    "deploy:backend": "git add . && git commit -m updateApp && git push origin main && curl -X POST $RENDER_DEPLOY_HOOK$"
+    "build:ui": "rm -rf dist && cd D:/GitHub_Projects/fullstack-open-core/part2/phonebook && npm run build && cp -r dist D:/GitHub_Projects/FullStackOpen-core-part3",
+    "deploy:full": "dotenv .env npm run build:ui && git add . && git commit -m uibuild && git push origin main && curl -X POST $RENDER_DEPLOY_HOOK$"
   },
   "repository": {
     "type": "git",

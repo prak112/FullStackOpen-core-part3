@@ -4,7 +4,7 @@ require('dotenv').config()
 // imports using CommonJS
 const express = require('express')
 const Contact = require('./models/contact')
-const morgan = require('morgan')    // logger
+const morgan = require('morgan')    // request logger
 const cors = require('cors')        // cross-origin resource sharing
 const PORT = process.env.PORT || 3001
 
@@ -12,7 +12,7 @@ const app = express()
 // load Middleware (VERY PARTICULAR ORDER)
 app.use(express.static('dist')) // Static site rendering
 app.use(express.json()) // json-parser for body
-app.use(cors()) // accept frontend 'dist' from different origin
+app.use(cors()) // accept frontend resources from different origin
 app.use(morgan('tiny')) // HTTP requests logging
 
 // Request Logger ONLY for development purposes - POST method
@@ -80,11 +80,11 @@ app.post('/api/contacts', (request, response, next) => {
 
 // UPDATE
 app.put('/api/contacts/:id', (request, response, next) => {
-    const contact = {
-        name: request.body.name,
-        number: request.body.number
-    }
-    Contact.findByIdAndUpdate(request.params.id, contact, {new: true})
+    const { name, number } = request.body
+    Contact.findByIdAndUpdate(request.params.id, 
+        { name, number }, 
+        {new: true, runValidators: true, context: 'query'}
+    )
         .then(updatedContact => {
             response.json(updatedContact)
         })
@@ -117,7 +117,10 @@ app.use(unknownEndpoint)    // load before-last Middleware
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
     if(error.name === 'CastError'){
-        response.status(400).send({error: 'Malformed request syntax / Invalid request framing'})
+        response.status(400).send({ error: 'Malformed request syntax / Invalid request framing' })
+    }
+    else if(error.name === 'ValidationError'){
+        response.status(400).send({ error: error.message })
     }
     next(error)
 }
