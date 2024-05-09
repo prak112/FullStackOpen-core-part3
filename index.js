@@ -124,5 +124,5 @@ const errorHandler = (error, request, response, next) => {
     }
     next(error)
 }
-app.use(errorHandler)   // ALWAYS last loaded Middleware
+app.use(errorHandler)  // ALWAYS last loaded Middleware
 

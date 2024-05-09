@@ -32,7 +32,7 @@ const phonebookSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function(v) {
-        return /^0*\d{1,3}-\d{7,}$/.test(v);
+        return /^0*\d{1,3}-\d{7,}$/.test(v)
       },
       message: props => `${props.value} is not valid. Number should be in format : 123-1234567`
     },
