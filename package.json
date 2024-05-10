@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
     "inspect": "node --inspect index.js",
     "dev": "nodemon --watch index.js",
     "build:ui": "rm -rf dist && cd D:/GitHub_Projects/fullstack-open-core/part2/phonebook && npm run build && cp -r dist D:/GitHub_Projects/FullStackOpen-core-part3",
@@ -33,7 +34,10 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^2.1.0",
     "dotenv": "^16.4.5",
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0",
     "nodemon": "^3.1.0"
   }
 }
