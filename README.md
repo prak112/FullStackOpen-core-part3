@@ -11,7 +11,7 @@
 | 3.1 to 3.8 | [Build REST API using Express](/index.js), [API testing using REST Client extension](/requests/), Middleware logging using `morgan` |
 | 3.9 to 3.11 | Deploy backend using Render - [Deployed Phonebook app](https://fullstackopen-core-part3.onrender.com), Deploy frontend production build |
 | 3.12 to 3.18 | MongoDB-mongoose [test deployment](/mongo.js), MongoDB-mongoose [setup with backend](/models/contact.js), [Error handling Middleware](/index.js) |
-| 3.19 to 3.22 | Input validation, Refactor to fix ESLint warnings |
+| 3.19 to 3.22 | [Input validation](/models/contact.js), Refactor to fix ESLint warnings |
 
 <hr>
 <br>
